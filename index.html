@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Motivation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #FFB6C1 0%, #87CEEB 25%, #FFFACD 50%, #DDA0DD 75%, #FFB6C1 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: #4A4A4A;
+            margin-bottom: 10px;
+            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
+        }
+
+        /* Main Content */
+        .quote-container {
+            max-width: 800px;
+            width: 100%;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            padding: 40px 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .quote-container.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .quote {
+            font-size: 1.4rem;
+            font-weight: 300;
+            font-style: italic;
+            margin-bottom: 20px;
+            color: #555;
+        }
+
+        .author {
+            font-size: 1.1rem;
+            font-weight: 400;
+            color: #777;
+            margin-bottom: 30px;
+        }
+
+        /* Buttons */
+        .button-group {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        button {
+            background: linear-gradient(135deg, #FFB6C1, #87CEEB);
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            color: white;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            font-weight: 400;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Category Buttons */
+        .category-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .category-btn {
+            background: rgba(255, 255, 255, 0.7);
+            color: #555;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            transition: background 0.3s ease;
+        }
+
+        .category-btn.active,
+        .category-btn:hover {
+            background: linear-gradient(135deg, #FFB6C1, #87CEEB);
+            color: white;
+        }
+
+        /* Share Buttons */
+        .share-group {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .share-btn {
+            background: linear-gradient(135deg, #25D366, #128C7E); /* WhatsApp green */
+            padding: 10px 15px;
+            border-radius: 20px;
+            color: white;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: transform 0.3s ease;
+        }
+
+        .share-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .share-btn.telegram {
+            background: linear-gradient(135deg, #0088CC, #0066A1); /* Telegram blue */
+        }
+
+        .share-btn.instagram {
+            background: linear-gradient(135deg, #E4405F, #F77737); /* Instagram gradient */
+        }
+
+        .share-btn.copy {
+            background: linear-gradient(135deg, #FFD700, #FFA500); /* Gold for copy */
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            margin-top: auto;
+            padding: 20px;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .quote {
+                font-size: 1.2rem;
+            }
+
+            .quote-container {
+                padding: 30px 20px;
+            }
+
+            .button-group,
+            .share-group {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            button,
+            .share-btn {
+                width: 100%;
+                max-width: 250px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+
+            .quote-container {
+                margin: 10px 0;
+                padding: 20px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Daily Motivation</h1>
+    </header>
+
+    <div class="category-buttons" id="categoryButtons">
+        <button class="category-btn active" data-category="all">All</button>
+        <button class="category-btn" data-category="success">Success</button>
+        <button class="category-btn" data-category="self-confidence">Self-Confidence</button>
+        <button class="category-btn" data-category="love">Love</button>
+        <button class="category-btn" data-category="healing">Healing</button>
+        <button class="category-btn" data-category="inspiration">Inspiration</button>
+    </div>
+
+    <main>
+        <div class="quote-container" id="quoteContainer">
+            <div class="quote" id="quoteText"></div>
+            <div class="author" id="quoteAuthor"></div>
+        </div>
+
+        <div class="button-group">
+            <button id="newQuoteBtn">New Quote</button>
+        </div>
+
+        <div class="share-group">
+            <a href="#" class="share-btn whatsapp" id="shareWhatsApp" target="_blank">Share on WhatsApp</a>
+            <a href="#" class="share-btn telegram" id="shareTelegram" target="_blank">Share on Telegram</a>
+            <a href="#" class="share-btn instagram" id="shareInstagram" target="_blank">Share on Instagram</a>
+            <button class="share-btn copy" id="copyBtn">Copy Quote</button>
+        </div>
+    </main>
+
+    <footer>
+        <p>Daily Motivation – Daily inspiration for everyone.</p>
+    </footer>
+
+    <script>
+        // Quotes data with categories (at least 40 quotes)
+        const quotes = [
+            // Success (10)
+            { text: "Success is not final, failure is not fatal: It is the courage to continue that counts.", author: "Winston Churchill", category: "success" },
+            { text: "The only way to do great work is to love what you do.", author: "Steve Jobs", category: "success" },
+            { text: "Success usually comes to those who are too busy to be looking for it.", author: "Henry David Thoreau", category: "success" },
+            { text: "Don't watch the clock; do what it does. Keep going.", author: "Sam Levenson", category: "success" },
+            { text: "The harder you work for something, the greater you'll feel when you achieve it.", author: "Unknown", category: "success" },
+            { text: "Success is walking from failure to failure with no loss of enthusiasm.", author: "Winston Churchill", category: "success" },
+            { text: "Opportunities don't happen. You create them.", author: "Chris Grosser", category: "success" },
+            { text: "Success is the sum of small efforts repeated day in and day out.", author: "Robert Collier", category: "success" },
+            { text: "I find that the harder I work, the more luck I seem to have.", author: "Thomas Jefferson", category: "success" },
+            { text: "The secret of success is to do the common thing uncommonly well.", author: "John D. Rockefeller Jr.", category: "success" },
+
+            // Self-Confidence (8)
+            { text: "Believe you can and you're halfway there.", author: "Theodore Roosevelt", category: "self-confidence" },
+            { text: "You are braver than you believe, stronger than you seem, and smarter than you think.", author: "A.A. Milne", category: "self-confidence" },
+            { text: "With confidence, you have won before you have started.", author: "Marcus Garvey", category: "self-confidence" },
+            { text: "Self-confidence is the first requisite to great undertakings.", author: "Samuel Johnson", category: "self-confidence" },
+            { text: "Don't be pushed around by the fears in your mind. Be led by the dreams in your heart.", author: "Roy T. Bennett", category: "self-confidence" },
+            { text: "Confidence comes not from always being right but from not fearing to be wrong.", author: "Peter T. Mcintyre", category: "self-confidence" },
+            { text: "The way to develop self-confidence is to do the thing you fear and get a record of successful experiences behind you.", author: "William Jennings Bryan", category: "self-confidence" },
+            { text: "Trust yourself. You know more than you think you do.", author: "Benjamin Spock", category: "self-confidence" },
+
+            // Love (8)
+            { text: "Love is the only force capable of transforming an enemy into a friend.", author: "Martin Luther King, Jr.", category: "love" },
+            { text: "Being deeply loved by someone gives you strength, while loving someone deeply gives you courage.", author: "Lao Tzu", category: "love" },
+            { text: "The best thing to hold onto in life is each other.", author: "Audrey Hepburn", category: "love" },
+            { text: "Love recognizes no barriers. It jumps hurdles, leaps fences, penetrates walls to arrive at its destination full of hope.", author: "Maya Angelou", category: "love" },
+            { text: "Where there is love there is life.", author: "Mahatma Gandhi", category: "love" },
+            { text: "Love is composed of a single soul inhabiting two bodies.", author: "Aristotle", category: "love" },
+            { text: "The giving of love is an education in itself.", author: "Eleanor Roosevelt", category: "love" },
+            { text: "To love and be loved is to feel the sun from both sides.", author: "David Viscott", category: "love" },
+
+            // Healing (7)
+            { text: "The wound is the place where the Light enters you.", author: "Rumi", category: "healing" },
+            { text: "Healing takes time, and asking for help is a courageous step.", author: "Mariska Hargitay", category: "healing" },
+            { text: "Out of suffering have emerged the strongest souls; the most massive characters are seared with scars.", author: "Khalil Gibran", category: "healing" },
+            { text: "Although the world is full of suffering, it is also full of the overcoming of it.", author: "Helen Keller", category: "healing" },
+            { text: "Healing doesn't mean the damage never existed. It means the damage no longer controls our lives.", author: "Akshay Dubey", category: "healing" },
+            { text: "Time doesn't heal all wounds, but it does give us the space to heal ourselves.", author: "Unknown", category: "healing" },
+            { text: "The human capacity for burden is like bamboo - far more flexible than you'd ever believe at first glance.", author: "Jodi Picoult", category: "healing" },
+
+            // Inspiration (10)
+            { text: "The future belongs to those who believe in the beauty of their dreams.", author: "Eleanor Roosevelt", category: "inspiration" },
+            { text: "Life is what happens to you while you're busy making other plans.", author: "John Lennon", category: "inspiration" },
+            { text: "In the middle of every difficulty lies opportunity.", author: "Albert Einstein", category: "inspiration" },
+            { text: "Do not go where the path may lead, go instead where there is no path and leave a trail.", author: "Ralph Waldo Emerson", category: "inspiration" },
+            { text: "The only impossible journey is the one you never begin.", author: "Tony Robbins", category: "inspiration" },
+            { text: "Innovation distinguishes between a leader and a follower.", author: "Steve Jobs", category: "inspiration" },
+            { text: "What lies behind us and what lies before us are tiny matters compared to what lies within us.", author: "Ralph Waldo Emerson", category: "inspiration" },
+            { text: "Your time is limited, don't waste it living someone else's life.", author: "Steve Jobs", category: "inspiration" },
+            { text: "The best time to plant a tree was 20 years ago. The second best time is now.", author: "Chinese Proverb", category: "inspiration" },
+            { text: "Dream big and dare to fail.", author: "Norman Vaughan", category: "inspiration" }
+        ];
+
+        let currentCategory = 'all';
+        let currentQuote = null;
+
+        // Elements
+        const quoteContainer = document.getElementById('quoteContainer');
+        const quoteText = document.getElementById('quoteText');
+        const quoteAuthor = document.getElementById('quoteAuthor');
+        const newQuoteBtn = document.getElementById('newQuoteBtn');
+        const categoryButtons = document.querySelectorAll('.category-btn');
+        const shareWhatsApp = document.getElementById('shareWhatsApp');
+        const shareTelegram = document.getElementById('shareTelegram');
+        const shareInstagram = document.getElementById('shareInstagram');
+        const copyBtn = document.getElementById('copyBtn');
+
+        // Function to get filtered quotes
+        function getFilteredQuotes() {
+            if (currentCategory === 'all') {
+                return quotes;
+            }
+            return quotes.filter(q => q.category === currentCategory);
+        }
+
+        // Function to display random quote with fade effect
+        function displayRandomQuote() {
+            const filteredQuotes = getFilteredQuotes();
+            if (filteredQuotes.length === 0) return;
+
+            currentQuote = filteredQuotes[Math.floor(Math.random() * filteredQuotes.length)];
+
+            quoteText.textContent = currentQuote.text;
+            quoteAuthor.textContent = `- ${currentQuote.author}`;
+
+            // Fade out and in
+            quoteContainer.classList.remove('show');
+            setTimeout(() => {
+                quoteContainer.classList.add('show');
+            }, 100);
+
+            updateShareLinks();
+        }
+
+        // Category filter
+        categoryButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                categoryButtons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentCategory = btn.dataset.category;
+                displayRandomQuote();
+            });
+        });
+
+        // New Quote button
+        newQuoteBtn.addEventListener('click', displayRandomQuote);
+
+        // Share functions
+        function updateShareLinks() {
+            const shareText = `${currentQuote.text} - ${currentQuote.author}`;
+            const encodedText = encodeURIComponent(shareText);
+
+            // WhatsApp
+            shareWhatsApp.href = `https://wa.me/?text=${encodedText}`;
+
+            // Telegram
+            shareTelegram.href = `https://t.me/share/url?url=${window.location.href}&text=${encodedText}`;
+
+            // Instagram (opens Instagram app/web for sharing, but direct story share is limited; this opens composer)
+            shareInstagram.href = `https://www.instagram.com/?text=${encodedText}`; // Note: Instagram sharing is app-based; this prompts share
+
+            // Copy to clipboard
+            copyBtn.onclick = () => {
+                navigator.clipboard.writeText(shareText).then(() => {
+                    alert('Quote copied to clipboard!');
+                }).catch(() => {
+                    // Fallback
+                    const textArea = document.createElement('textarea');
+                    textArea.value = shareText;
+                    document.body.appendChild(textArea);
+                    textArea.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(textArea);
+                    alert('Quote copied to clipboard!');
+                });
+            };
+        }
+
+        // Initial load
+        displayRandomQuote();
+    </script>
+</body>
+</html>
